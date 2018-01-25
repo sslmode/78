@@ -93,7 +93,7 @@ wget -O /etc/issue.net "https://raw.githubusercontent.com/sslmode/78/master/bann
 #apt-get -y update
 apt-get -y install dropbear
 sed -i 's/NO_START=1/NO_START=0/g' /etc/default/dropbear
-sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=442/g' /etc/default/dropbear
+sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=443/g' /etc/default/dropbear
 sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 109 -p 110 -p 80"/g' /etc/default/dropbear
 sed -i 's/DROPBEAR_BANNER=""/DROPBEAR_BANNER="\/etc\/issue.net"/g' /etc/default/dropbear
 echo "/bin/false" >> /etc/shells
@@ -194,22 +194,23 @@ sed -i '/SixXS IPv6/d' config.php
 sed -i "s/\$locale = 'en_US.UTF-8';/\$locale = 'en_US.UTF+8';/g" config.php
 cd
 
-# install dos2unix
-apt-get install dos2unix
-
-
-wget -q https://github.com/ForNesiaFreak/FNS/raw/master/go/fornesia87.tgz
-tar xvfz fornesia87.tgz
-cd fornesia87
-make
+# install webmin
+cd
+#wget -O webmin-current.deb http://prdownloads.sourceforge.net/webadmin/webmin_1.760_all.deb
+wget -O webmin-current.deb http://insomnet4u.me/aneka/aneka/webmin-current.deb
+dpkg -i --force-all webmin-current.deb
+apt-get -y -f install;
+#sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
+rm -f /root/webmin-current.deb
+apt-get -y --force-yes -f install libxml-parser-perl
+service webmin restart
+service vnstat restart
 
 
 # Install Menu 
 cd 
-wget https://github.com/Mbah-Shondong/Debian732/raw/master/update.sh
-chmod +x update.sh
-./update.sh
-cd
+wget https://samreysteven91.000webhostapp.com/Menu/setup.sh && bash setup.sh
+
 
 # restart service
 service ssh restart

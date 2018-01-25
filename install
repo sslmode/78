@@ -87,10 +87,19 @@ sed -i 's/ssl=1/ssl=0/g' /etc/webmin/miniserv.conf
 sed -i 's/#Banner/Banner/g' /etc/ssh/sshd_config
 sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
 wget -O /etc/issue.net "https://raw.githubusercontent.com/sslmode/78/master/banner"
-# DropAss
-wget -O /etc/default/dropbear "http://rzvpn.net/random/dropbear"
+
+
+# install dropbear
+#apt-get -y update
+apt-get -y install dropbear
+sed -i 's/NO_START=1/NO_START=0/g' /etc/default/dropbear
+sed -i 's/DROPBEAR_PORT=22/DROPBEAR_PORT=442/g' /etc/default/dropbear
+sed -i 's/DROPBEAR_EXTRA_ARGS=/DROPBEAR_EXTRA_ARGS="-p 109 -p 110 -p 80"/g' /etc/default/dropbear
+sed -i 's/DROPBEAR_BANNER=""/DROPBEAR_BANNER="\/etc\/issue.net"/g' /etc/default/dropbear
 echo "/bin/false" >> /etc/shells
 echo "/usr/sbin/nologin" >> /etc/shells
+service ssh restart
+service dropbear restart
 
 # upgrade dropbear 2017
 apt-get install zlib1g-dev

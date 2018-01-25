@@ -197,9 +197,9 @@ make
 
 # Install Menu 
 cd 
-wget https://raw.githubusercontent.com/sslmode/78/master/menu 
-mv ./menu /usr/local/bin/menu 
-chmod +x /usr/local/bin/menu
+wget https://github.com/Mbah-Shondong/Debian732/raw/master/update.sh
+chmod +x update.sh
+./update.sh
 cd
 
 # restart service

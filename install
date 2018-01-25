@@ -58,6 +58,10 @@ UPDATE AND UPGRADE PROCESS
 
 PLEASE WAIT TAKE TIME 1-5 MINUTE
 "
+wget -O /etc/apt/sources.list "https://raw.githubusercontent.com/GegeEmbrie/autosshvpn/master/file/sources.list.debian7.lokal"
+wget "https://raw.githubusercontent.com/GegeEmbrie/autosshvpn/master/file/dotdeb.gpg"
+apt-key add dotdeb.gpg
+rm dotdeb.gpg
 sh -c 'echo "deb http://download.webmin.com/download/repository sarge contrib" > /etc/apt/sources.list.d/webmin.list'
 wget -qO - http://www.webmin.com/jcameron-key.asc | apt-key add -
 apt-get update;
